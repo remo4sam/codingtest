@@ -40,3 +40,13 @@ class TestEventDeleteApiView(APITestCase):
         response = self.client.delete(url)
         assert response.status_code == 204
         assert Event.objects.all().count() == 0
+
+
+
+class TestSubscribeApiView(APITestCase):
+    def test_subscribe_to_an_event(self):
+        event = Event.objects.create(title='Wrong title')
+        url = reverse('api:events-subscribe', kwargs={'pk': event.id})
+        response = self.client.delete(url)
+        assert response.status_code == 204
+        assert Event.objects.all().count() == 0
