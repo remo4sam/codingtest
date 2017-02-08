@@ -6,4 +6,4 @@ from django.utils.timezone import now
 
 class Event(models.Model):
     title = models.CharField(max_length=150)
-    created = models.DateTimeField(default=now)
+    created = models.DateTimeField(default=now, null=True)
