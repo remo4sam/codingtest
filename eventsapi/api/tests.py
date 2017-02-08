@@ -30,3 +30,13 @@ class TestEventUpdateApiView(APITestCase):
         assert event.title == 'Wrong title'
         new_event = Event.objects.get(pk=event.id)
         assert new_event.title == 'new correct title'
+
+
+class TestEventDeleteApiView(APITestCase):
+    def test_event_of_event(self):
+        event = Event.objects.create(title='Wrong title')
+        url = reverse('api:events-delete', kwargs={'pk': event.id})
+        assert Event.objects.all().count() == 1
+        response = self.client.delete(url)
+        assert response.status_code == 204
+        assert Event.objects.all().count() == 0
